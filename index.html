@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokenização Imobiliária - Revolucione seus Investimentos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(180deg, #001f3f 0%, #003d7a 25%, #0059b3 50%, #006bb8 75%, #0080ff 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0.6) 60%, rgba(255,255,255,1) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffd700" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #FFB800;
+            font-weight: 600;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFB800 0%, #FFC933 100%);
+            color: #001f3f;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 184, 0, 0.4);
+            animation: fadeInUp 1s ease-out 0.9s both, pulse 2s infinite 2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 184, 0, 0.6);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-white {
+            background: white;
+        }
+
+        .section-blue {
+            background: linear-gradient(135deg, #e6f2ff 0%, #cce5ff 100%);
+        }
+
+        .section-blue::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0.6) 60%, rgba(255,255,255,1) 100%);
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #001f3f;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #FFB800, #FFC933);
+            border-radius: 2px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 4px solid #FFB800;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .benefit-card h3 {
+            color: #0059b3;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #FFB800;
+        }
+
+        .for-who {
+            background: linear-gradient(180deg, #e6f2ff 0%, #cce5ff 5%, #99ccff 10%, #6699cc 15%, #336699 20%, #003366 25%, #002952 30%, #001f3f 35%, #001f3f 100%);
+            color: white;
+            padding: 80px 20px;
+        }
+
+        .for-who .section-title {
+            color: white;
+        }
+
+        .for-who .section-title::after {
+            background: linear-gradient(90deg, #FFB800, #FFC933);
+        }
+
+        .carousel-container {
+            max-width: 600px;
+            margin: 50px auto 0;
+            position: relative;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .for-who-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
+            border-radius: 15px;
+            border-left: 5px solid #FFB800;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .for-who-card.active {
+            display: block;
+        }
+
+        .for-who-card .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .for-who-card h3 {
+            color: #FFB800;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .for-who-card p {
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .carousel-btn {
+            background: rgba(255, 184, 0, 0.2);
+            border: 2px solid #FFB800;
+            color: #FFB800;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-btn:hover {
+            background: #FFB800;
+            color: #001f3f;
+            transform: scale(1.1);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #FFB800;
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .guarantee {
+            background: linear-gradient(135deg, #FFC933 0%, #FFB800 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .guarantee h2 {
+            color: #001f3f;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .guarantee p {
+            color: #001f3f;
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .guarantee .cta-button {
+            background: linear-gradient(135deg, #001f3f 0%, #0059b3 100%);
+            color: white;
+        }
+
+        .guarantee .cta-button:hover {
+            background: linear-gradient(135deg, #0059b3 0%, #0080ff 100%);
+        }
+
+        .course-info {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #e6f2ff 0%, #cce5ff 100%);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #0059b3;
+        }
+
+        .info-card h3 {
+            color: #0059b3;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: #333;
+        }
+
+        .author {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .author-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 50px;
+            align-items: center;
+            max-width: 1000px;
+            margin: 50px auto 0;
+        }
+
+        .author-image {
+            position: relative;
+        }
+
+        .author-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border: 5px solid #FFB800;
+        }
+
+        .author-bio h3 {
+            color: #001f3f;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .author-title {
+            color: #0059b3;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .author-bio p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .author-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #e6f2ff 0%, #cce5ff 100%);
+            border-radius: 10px;
+            border-top: 3px solid #FFB800;
+        }
+
+        .stat strong {
+            display: block;
+            color: #0059b3;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .stat span {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .pricing {
+            background: linear-gradient(to bottom, white 0%, #e6f2ff 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .pricing-card {
+            max-width: 600px;
+            margin: 50px auto 0;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.15);
+            border: 3px solid #FFB800;
+        }
+
+        .pricing-tag {
+            background: linear-gradient(135deg, #001f3f 0%, #0059b3 100%);
+            color: white;
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .old-price {
+            color: #999;
+            font-size: 1.5em;
+            text-decoration: line-through;
+            margin-bottom: 10px;
+        }
+
+        .current-price {
+            color: #0059b3;
+            font-size: 4em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .price-detail {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .price-features {
+            text-align: left;
+            margin: 30px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .price-features li {
+            color: #333;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            list-style: none;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+
+        .price-features li::before {
+            content: '✓';
+            color: #FFB800;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .faq {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active {
+            border-color: #FFB800;
+        }
+
+        .faq-question {
+            background: #f8f9fa;
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #001f3f;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #e6f2ff;
+        }
+
+        .faq-arrow {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+            color: #0059b3;
+        }
+
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+        }
+
+        .faq-answer-content {
+            padding: 25px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .final-cta {
+            background: linear-gradient(135deg, #001f3f 0%, #0059b3 100%);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        footer {
+            background: #001f3f;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2em;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .benefits-grid,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .author-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .author-image {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+
+            .author-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Tokenização Imobiliária</h1>
+            <p class="subtitle">Revolucione seus Investimentos no Mercado Imobiliário</p>
+            <p>Aprenda a transformar imóveis em ativos digitais e democratizar o acesso ao mercado imobiliário através da tecnologia blockchain</p>
+            <a href="#inscricao" class="cta-button">QUERO COMEÇAR AGORA</a>
+        </div>
+    </section>
+
+    <section class="section section-white">
+        <h2 class="section-title">O Que Você Vai Aprender</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <h3>Fundamentos da Tokenização</h3>
+                <p>Entenda como funciona a tokenização de imóveis, blockchain e a tecnologia por trás dessa revolução no mercado imobiliário.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Aplicação</h3>
+                <p>Aprenda a aplicação de tokenização do início ao fim, incluindo aspectos legais, financeiros e tecnológicos.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Aspectos Legais e Regulatórios</h3>
+                <p>Domine a legislação brasileira aplicável à tokenização imobiliária e evite problemas jurídicos em seus projetos.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Descubra sobre Blockchain</h3>
+                <p>Aprenda sobre a tokenização imobiliaria que deixa ativos mais seguros e confiáveis, tornando tudo possível.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Stablecoin</h3>
+                <p>Conheça a nova forma de pagamento estáveis e porque foram criadas.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Tokenização do Zero</h3>
+                <p>A nova maneira de do absoluto ZERO.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="for-who">
+        <div class="section">
+            <h2 class="section-title">Este Curso é Para Você Que:</h2>
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="for-who-card active">
+                        <div class="icon"></div>
+                        <h3>✓ É Investidor Imobiliário</h3>
+                        <p>E quer diversificar seus investimentos utilizando novas tecnologias e democratizar o acesso aos seus empreendimentos.</p>
+                    </div>
+                    <div class="for-who-card">
+                        <div class="icon"></div>
+                        <h3>✓ Atua no Mercado Imobiliário</h3>
+                        <p>Como corretor, incorporador ou desenvolvedor e deseja se destacar oferecendo soluções inovadoras aos seus clientes.</p>
+                    </div>
+                    <div class="for-who-card">
+                        <div class="icon"></div>
+                        <h3>✓ É Advogado</h3>
+                        <p>E busca oportunidades para crescer o novo lado do Direito e mudar sua carreira para o setor imobiliário.</p>
+                    </div>
+                    <div class="for-who-card">
+                        <div class="icon"></div>
+                        <h3>✓ Quer Entrar no Mercado Cripto</h3>
+                        <p>E vê a tokenização imobiliária como uma porta de entrada segura e com lastro real para o mundo dos ativos digitais.</p>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" onclick="moveCarousel(-1)">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="carousel-dots"></div>
+                    <button class="carousel-btn next" onclick="moveCarousel(1)">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="guarantee">
+        <h2> A nova oportunidade está batendo na sua porta</h2>
+        <p> Comece 2026 transformando sua carreira nesse novo mercado promissor de ativos. </p>
+        <a href="#inscricao" class="cta-button">GARANTIR MINHA VAGA AGORA</a>
+    </section>
+
+    <section class="author">
+        <div class="section">
+            <h2 class="section-title">Sobre mentora do curso</h2>
+            <div class="author-content">
+                <div class="author-image">
+                    <img src="imagens/TOKENIMOBI-258 (1).jpg" alt="Tokenimobi 2" style="display:block;margin-top:8px;max-width:100%;border-radius:8px">
+                </div>
+                <div class="author-bio">
+                    <h3>Dra. Rosemeire Gelcer</h3>
+                    <p class="author-title">Advogada especialista em Tokenização Imobiliária</p>
+                    <p>Com mais de 20 anos de experiência no mercado imobiliário, fundadora da ETI - Escola de Tokenização Imobiliária, Conselheira Jurídica de várias empresas, árbitra na ExtraJud Mediações, escritora, autora do projeto de Lei sobre regulação da Tokenização e palestrante.</p>
+                    <p>Pós graduada em Direito Imobiliário pela PUC/SP, Dra. Rose tem um vasto conhecimento quando o assunto é tokenização de ativos.</p>
+                    <div class="author-stats">
+                        <div class="stat">
+                            <strong>3+</strong>
+                            <span>Livros Publicados</span>
+                        </div>
+                        <div class="stat">
+                            <strong>5.000+</strong>
+                            <span>Causas Patrocinadas</span>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="course-info">
+        <h2 class="section-title">Informações sobre o Curso</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3> Carga Horária</h3>
+                <p>Curso completo com módulos práticos e teóricos para você iniciar na tokenização imobiliária</p>
+            </div>
+            <div class="info-card">
+                <h3> Acesso Vitalício</h3>
+                <p>Acesso ao conteúdo por 365 dias após a liberação, podendo assistir quando e onde quiser</p>
+            </div>
+            
+            <div class="info-card">
+                <h3>Bônus Exclusivos</h3>
+                <p>Apostila completa de material e acesso à comunidade exclusiva de alunos</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <h2>Pronto para crescer profissionalmente?</h2>
+        <p style="font-size: 1.2em; margin-bottom: 40px;">Onde você é advogado, é raridade? Não perca a oportunidade de estar à frente no mercado de tokenização imobiliária</p>
+        <a href="#inscricao" class="cta-button" id="inscricao">QUERO ME INSCREVER AGORA</a>
+    </section>
+
+    <section class="pricing">
+        <h2 class="section-title">Investimento no Seu Futuro</h2>
+        <div class="pricing-card">
+            <div class="pricing-tag">OFERTA ESPECIAL DE LANÇAMENTO</div>
+            <div class="old-price">De R$ 2.997,00</div>
+            <div class="current-price">R$297,00 </div>
+            <div class="price-detail">ou 6x de R$ 67,00 no cartão sem juros</div>
+            
+            <ul class="price-features">
+                <li>Acesso completo ao curso por 365 dias</li>
+                <li>Aulas teóricas com explicações do zero</li>
+                <li>Apostila complementar</li>
+                <li>Templates e documentos exclusivos</li>
+                <li>Acesso à comunidade exclusiva</li>
+            </ul>
+
+            <a href="#inscricao" class="cta-button">GARANTIR MINHA VAGA COM DESCONTO</a>
+        </div>
+    </section>
+
+    <section class="faq">
+        <h2 class="section-title">Perguntas Frequentes</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Preciso ter conhecimento prévio em blockchain?</span>
+                    <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Não! O curso foi desenvolvido para iniciantes. Começamos do zero, explicando todos os conceitos fundamentais de blockchain e tokenização de forma clara e didática. Você não precisa ter nenhum conhecimento técnico prévio.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Por quanto tempo terei acesso ao curso?</span>
+                    <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Você terá acesso completo ao curso por 365 dias (1 ano) a partir da data de liberação do conteúdo. Durante este período, pode assistir as aulas quantas vezes quiser e no seu próprio ritmo.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Eu como advogado de outro ramo sem ser mobiliário, posso atuar com tokenização?</span>
+                    <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Sim! Você não precisa ter conhecimento na área para poder atuar na tokenização de ativos. O curso foi desenvolvido para fornecer todo o conhecimento necessário, desde os conceitos básicos até as aplicações mais elaboradas, permitindo que advogados de diversas áreas possam ingressar nesse novo mercado.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>O curso Funciona para corretores?</span>
+                    <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Sim! O curso é ideal para corretores que desejam se destacar no mercado imobiliário oferecendo soluções inovadoras de tokenização para seus clientes. Você aprenderá tudo o que precisa para aplicar esses conceitos na prática.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Posso parcelar o investimento?</span>
+                    <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Sim! Você pode parcelar em até 6x no cartão de crédito sem juros. Também aceitamos pagamento via PIX ou boleto à vista com desconto adicional.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Terei suporte durante o curso?</span>
+                    <svg class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Com certeza! Você terá um suporte para alunos onde poderá tirar dúvidas ou compartilhar suas experiências.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Tokenização Imobiliária - Todos os direitos reservados ETI - Escola de Tokenização Imobiliária</p>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.for-who-card');
+        const dotsContainer = document.querySelector('.carousel-dots');
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(index);
+            dotsContainer.appendChild(dot);
+        });
+
+        function moveCarousel(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            const dots = document.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // FAQ functionality
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            const wasActive = faqItem.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked FAQ if it wasn't active
+            if (!wasActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Smooth scroll para os links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animação ao scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.benefit-card, .info-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
