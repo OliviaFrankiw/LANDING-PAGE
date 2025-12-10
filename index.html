@@ -538,14 +538,14 @@
 
         .faq-item {
             margin-bottom: 20px;
-            border: 2px solid #e0e0e0;
+            border: none; /* remoção de borda nas perguntas */
             border-radius: 10px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
         .faq-item.active {
-            border-color: #FFB800;
+            border-color: box-shadow; /* adição de sombra nas perguntas ativas */
         }
 
         .faq-question {
@@ -656,7 +656,7 @@
             <h1>Tokenização Imobiliária</h1>
             <p class="subtitle">Revolucione seus Investimentos no Mercado Imobiliário</p>
             <p>Aprenda a transformar imóveis em ativos digitais e democratizar o acesso ao mercado imobiliário através da tecnologia blockchain</p>
-            <a href="#inscricao" class="cta-button">QUERO COMEÇAR AGORA</a>
+            <a href="https://www.etokenizacao.com.br/" class="cta-button">QUERO COMEÇAR AGORA</a>
         </div>
     </section>
 
@@ -736,7 +736,7 @@
     <section class="guarantee">
         <h2> A nova oportunidade está batendo na sua porta</h2>
         <p> Comece 2026 transformando sua carreira nesse novo mercado promissor de ativos. </p>
-        <a href="#inscricao" class="cta-button">GARANTIR MINHA VAGA AGORA</a>
+        <a href="https://www.etokenizacao.com.br/" class="cta-button">QUERO COMEÇAR AGORA</a>
     </section>
 
     <section class="author">
@@ -789,7 +789,7 @@
     <section class="final-cta">
         <h2>Pronto para crescer profissionalmente?</h2>
         <p style="font-size: 1.2em; margin-bottom: 40px;">Onde você é advogado, é raridade? Não perca a oportunidade de estar à frente no mercado de tokenização imobiliária</p>
-        <a href="#inscricao" class="cta-button" id="inscricao">QUERO ME INSCREVER AGORA</a>
+        <a href="https://www.etokenizacao.com.br/" class="cta-button">QUERO COMEÇAR AGORA</a>
     </section>
 
     <section class="pricing">
@@ -808,7 +808,7 @@
                 <li>Acesso à comunidade exclusiva</li>
             </ul>
 
-            <a href="#inscricao" class="cta-button">GARANTIR MINHA VAGA COM DESCONTO</a>
+            <a href="https://www.etokenizacao.com.br/" class="cta-button">QUERO COMEÇAR AGORA</a>
         </div>
     </section>
 
@@ -855,7 +855,7 @@
                         Sim! Você não precisa ter conhecimento na área para poder atuar na tokenização de ativos. O curso foi desenvolvido para fornecer todo o conhecimento necessário, desde os conceitos básicos até as aplicações mais elaboradas, permitindo que advogados de diversas áreas possam ingressar nesse novo mercado.
                 </div>
             </div>
-
+        </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>O curso Funciona para corretores?</span>
@@ -942,7 +942,7 @@
 
         // FAQ functionality
         function toggleFaq(element) {
-            const faqItem = element.parentElement;
+            const faqItem = element.closest('.faq-item')
             const wasActive = faqItem.classList.contains('active');
             
             // Close all FAQs
